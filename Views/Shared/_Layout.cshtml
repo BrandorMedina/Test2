@@ -1,0 +1,166 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Test1</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+    <link href="~/css/Sidebar.css" rel="stylesheet" />
+    
+</head>
+<body>
+    <div class="container">
+        <main role="main" class="pb-3">
+
+            @RenderBody()
+            @if (IsSectionDefined(name: "CustomSection"))
+            {
+
+                @RenderSection(name: "CustomSection")
+                //SideBar
+                <div class="page-wrapper chiller-theme toggled">
+                    <a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
+                        <i class="fas fa-bars"></i>
+                    </a>
+                    <nav id="sidebar" class="sidebar-wrapper">
+                        <div class="sidebar-content">
+                            <div class="sidebar-brand">
+                                <a><h4 class="text-primary font-weight-bold">Sistema</h4></a>
+                                <div id="close-sidebar">
+                                    <i class="fas fa-times"></i>
+                                </div>
+                            </div>
+                            <div class="sidebar-header">
+                                <div class="user-pic">
+                                    <img class="img-responsive img-rounded" src=""
+                                         alt="User picture">
+                                </div>
+                                <div class="user-info">
+                                    <span class="user-name">
+                                        @User.Identity.Name
+                                    </span>
+                                    <span class="user-role">Administrator</span>
+                                </div>
+                            </div>
+
+                            <!-- sidebar-header  -->
+                            <div class="sidebar-search">
+                                <div>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control search-menu" placeholder="Search...">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">
+                                                <i class="fa fa-search" aria-hidden="true"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- sidebar-search  -->
+                            <div class="sidebar-menu">
+                                <ul>
+                                    <li class="sidebar">
+                                        <a href="#">
+                                            <i class="fa fa-tachometer-alt"></i>
+                                            <span>Dashboard</span>
+                                            <span class="badge badge-pill badge-warning"></span>
+                                        </a>
+
+                                    </li>
+                                    <li class="sidebar-dropdown">
+                                        <a href="#">
+                                            <i class="far fa-file-alt"></i>
+                                            <span>Documentos</span>
+                                        </a>
+                                        <div class="sidebar-submenu">
+                                            <ul>
+                                                <li>
+                                                    <a asp-area="" asp-controller="Docs" asp-action="Index">Documentos</a>
+                                                </li>
+                                                <li>
+                                                    <a asp-area="" asp-controller="Docs" asp-action="DocCreate">Nuevo Documento</a>
+                                                </li>
+                                                <li>
+                                                    <a asp-area="" asp-controller="Docs" asp-action="ActiveDocs">Documentos activos</a>
+                                                </li>
+                                                <li>
+                                                    <a asp-area="" asp-controller="Docs" asp-action="FinishedDocs">Documentos finalizados</a>
+                                                </li>
+                                                <li>
+                                                    <a asp-area="" asp-controller="Docs" asp-action="TimeoverDocs">Documentos fuera de fecha</a>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li class="sidebar-dropdown">
+                                        <a href="#">
+                                            <i class="fas fa-users"></i>
+                                            <span>Usuarios</span>
+                                        </a>
+                                        <div class="sidebar-submenu">
+                                            <ul>
+                                                <li>
+                                                    <a asp-area="" asp-controller="Admin" asp-action="user">Usuarios</a>
+                                                </li>
+                                                <li>
+                                                    <a asp-area="" asp-controller="Admin" asp-action="Userregister">Nuevo Usuario</a>
+                                                </li>
+                                                <li>
+                                                    <a asp-area="" asp-controller="Admin" asp-action="Useredit">Actualizar Usuario</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- sidebar-content footer  -->
+                        <div class="sidebar-footer">
+                            @*<a href="#">
+                                    <i class="fa fa-bell"></i>
+                                    <span class="badge badge-pill badge-warning notification">3</span>
+                                </a>
+                                <a href="#">
+                                    <i class="fa fa-envelope"></i>
+                                    <span class="badge badge-pill badge-success notification">7</span>
+                                </a>
+                                <a href="#">
+                                    <i class="fa fa-cog"></i>
+                                    <span class="badge-sonar"></span>
+                                </a>*@
+                            <div class="mx-auto">
+                                <form name="formlogout" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnurl="@ViewData["ReturnUrl"]">
+                                    <a href="#" onclick="submitLogout()"><i class="fa fa-power-off"></i></a>
+                                </form>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            }
+            else
+            {
+
+            }
+        </main>
+    </div>
+    <script>
+        function submitLogout() {
+            document.formlogout.submit();
+        }
+
+    </script>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="~/js/sidebar.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
